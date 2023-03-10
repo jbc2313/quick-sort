@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 
 
 void listArray(int *pntr, int size) {
@@ -9,9 +9,9 @@ void listArray(int *pntr, int size) {
 };
 
 void swap(int *a, int *b) {
-    int tmp = a;
-    a = b;
-    b = tmp;
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 };
 
 int partition(int *pnt, int low, int high) {
@@ -22,18 +22,18 @@ int partition(int *pnt, int low, int high) {
     for (j = low; j <= high - 1; j++) {
         if (pnt[j] <= pivot) {
             i++;
-            swap(pnt[i], arr[j]); // might need &
+            swap(&pnt[i], &pnt[j]); // might need &
         };
     };
-    swap(arr[i + 1], arr[high]);
+    swap(&pnt[i + 1], &pnt[high]);
     return (i + 1);
 };
 
 void quick(int *pnt, int low, int high) {
     if (low < high) {
         int pIndex = partition(pnt, low, high);
-        quicksort(pnt, low, pIndex - 1);
-        quicksort(pnt, pIndex + 1, high);
+        quick(pnt, low, pIndex - 1);
+        quick(pnt, pIndex + 1, high);
     };
 };
 
